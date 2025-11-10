@@ -1,17 +1,17 @@
-# --- Constantes de Syscalls ---
+# Constantes de Syscalls
 .equ SYS_OPEN, 56
 .equ SYS_READ, 63
 .equ SYS_WRITE, 64
 .equ SYS_CLOSE, 57
 .equ SYS_EXIT, 93
 
-# --- Constantes de Banderas (Flags) ---
+# Constantes de Banderas (Flags)
 .equ O_RDONLY, 0
 .equ O_WRONLY, 1
 .equ O_CREAT, 64
 .equ O_TRUNC, 512
 
-# --- Constantes del Programa ---
+# Constantes del Programa
 .equ BUF_SIZE, 64       # Tamaño máx. para leer y descartar
 .equ INT_SIZE, 4        # 4 bytes para un entero de 32-bit
 .equ NEWLINE_CHAR, 10   # ASCII para '\n'
@@ -32,7 +32,7 @@ buffer:         .space BUF_SIZE # Buffer temporal
 .global _start
 
 _start:
-    # --- 1. Leer el offset guardado de p1_offset.bin ---
+    # 1. Leer el offset guardado de p1_offset.bin
     li a0, -100
     la a1, offset_filename
     li a2, O_RDONLY
@@ -59,7 +59,7 @@ inicializar_offset:
     sw a0, 0(t0)                # sw (Store Word) guarda el 0 en la variable
 
 abrir_archivo_datos:
-    # --- 2. Abrir el archivo de datos (medidas.txt) ---
+    # 2. Abrir el archivo de datos (medidas.txt)
     li a0, -100
     la a1, filename
     li a2, O_RDONLY
@@ -68,7 +68,7 @@ abrir_archivo_datos:
     mv s1, a0                   # s1 = fd de medidas.txt
     bltz s1, salir_error_abrir
 
-    # --- 3. Avanzar el cursor (reemplazo de lseek) ---
+    # 3. Avanzar el cursor (reemplazo de lseek)
     la t0, current_offset
     lw s2, 0(t0)                # s2 = offset_a_buscar
     beq s2, zero, leer_linea_datos # Si offset es 0, saltar a leer
@@ -100,7 +100,7 @@ leer_descarte:
     bgtz s2, bucle_descartar    # Si falta, seguir descartando
 
 leer_linea_datos:
-    # --- 4. Bucle: Leer la línea byte a byte ---
+    # 4. Bucle: Leer la línea byte a byte
     # El cursor del archivo ya está en la posición correcta.
     mv s4, zero                 # s4 = índice del buffer
     mv s5, zero                 # s5 = contador de bytes de la línea actual
@@ -131,7 +131,7 @@ bucle_leer_byte:
     j bucle_leer_byte
 
 fin_bucle:
-    # --- 5. Escribir la línea leída en stdout (pipe) ---
+    # 5. Escribir la línea leída en stdout (pipe)
     beq s4, zero, comprobar_eof # Si no leímos nada (s4=0), no escribir
     
     li a0, 1                    # fd 1 (stdout)
@@ -141,7 +141,7 @@ fin_bucle:
     ecall
 
 comprobar_eof:
-    # --- 6. Calcular y guardar el próximo offset ---
+    # 6. Calcular y guardar el próximo offset
     bnez s3, no_eof             # Si s3 != 0 (no fue EOF), calcular offset
     
     # Caso 1: Fue EOF (s3=0). Resetea el offset a 0 para el próximo ciclo.
@@ -159,7 +159,7 @@ guardar_offset:
     la t0, current_offset
     sw s2, 0(t0)
 
-    # --- 7. Escribir el nuevo offset en p1_offset.bin ---
+    # 7. Escribir el nuevo offset en p1_offset.bin
     li a0, -100
     la a1, offset_filename
     li a2, O_WRONLY | O_CREAT | O_TRUNC # Sobrescribir el archivo de estado
@@ -179,7 +179,7 @@ guardar_offset:
     ecall
 
 cerrar_archivo_datos:
-    # --- 8. Cerrar archivo de datos ---
+    # 8. Cerrar archivo de datos
     mv a0, s1
     li a7, SYS_CLOSE
     ecall

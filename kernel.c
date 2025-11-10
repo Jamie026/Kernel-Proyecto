@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>     // fork(), execvp(), sleep(), pipe(), dup2(), close(), kill()
+#include <unistd.h>     // fork(), execvp(), sleep(), pipe(), dup2(), close(), kill(), read()
 #include <sys/wait.h>   // wait4()
 #include <sys/time.h>   
 #include <sys/resource.h> 
@@ -10,7 +10,7 @@
 // Escenario seleccionado por el usuario
 static int escenario_actual = 0; 
 
-// Almacenamiento global de estadísticas del ciclo
+// Almacenamiento global de estadísticas
 static struct rusage usage_p1, usage_p2, usage_p3;
 static pid_t pid_p1 = 0, pid_p2 = 0, pid_p3 = 0;
 
@@ -25,7 +25,7 @@ void inicializar_ciclo() {
 // Reporta la terminación de un proceso
 void proceso_terminado(const char *nombre_proceso, pid_t pid) {
     printf("\n[Kernel] Proceso %s (PID %d) terminado.\n", nombre_proceso, pid);
-    fflush(stdout); // Asegura que el mensaje salga
+    fflush(stdout);
 }
 
 // Imprime una fila de la tabla de recursos
@@ -60,7 +60,6 @@ void esperar_proceso(pid_t pid, const char *nombre_proceso, int timeout_sec) {
         printf("[Kernel] Esperando %d segundos (timeout activo para %s)...\n",
                timeout_sec, nombre_proceso);
         fflush(stdout);
-
         int remaining = timeout_sec;
         while (remaining > 0) {
             // WNOHANG no se bloquea, permite revisar en bucle
@@ -91,30 +90,47 @@ void esperar_proceso(pid_t pid, const char *nombre_proceso, int timeout_sec) {
 guardar_stats:
     // Guarda las estadísticas en la variable global correcta
     if (strcmp(nombre_proceso, "./proceso1") == 0) {
-        usage_p1 = usage;
-        pid_p1 = pid;
+        usage_p1 = usage; pid_p1 = pid;
     } else if (strcmp(nombre_proceso, "./proceso2") == 0) {
-        usage_p2 = usage;
-        pid_p2 = pid;
+        usage_p2 = usage; pid_p2 = pid;
     } else if (strcmp(nombre_proceso, "./proceso3") == 0) {
-        usage_p3 = usage;
-        pid_p3 = pid;
+        usage_p3 = usage; pid_p3 = pid;
     }
 }
 
-// Función del proceso hijo: solo hace execvp
+// Función del hijo: solo ejecuta execvp
 void lanzar_hijo_exec(char *const argv[]) {
     execvp("qemu-riscv32", argv);
     perror("execvp"); // Se ejecuta solo si execvp falla
     exit(1);
 }
 
+// Lee los datos que P3 envió al kernel por la pipe
+void leer_datos_p3(int pipe_fd) {
+    char buffer[128];
+    // Lee del extremo de lectura de la pipe
+    ssize_t bytes_read = read(pipe_fd, buffer, sizeof(buffer) - 1);
+    
+    if (bytes_read > 0) {
+        buffer[bytes_read] = '\0'; // Asegura terminación de string
+        // Limpia el \n final para un log más limpio
+        if (buffer[bytes_read - 1] == '\n') buffer[bytes_read - 1] = '\0';
+        
+        printf("[Kernel] >>> DATOS RECIBIDOS de P3: [%s] <<<\n", buffer);
+        fflush(stdout);
+    } else {
+        printf("[Kernel] No se recibieron datos de P3.\n");
+    }
+    close(pipe_fd); // Cierra el extremo de lectura
+}
+
 // ESCENARIO 1: P1 -> P2 -> P3
 void ejecutar_escenario_1() {
     pid_t pid1, pid2, pid3;
     const int TIMEOUT_P3 = 5;
-    
-    // --- 1. Lanzar todos los procesos ---
+    int datos_pipe[2]; // Pipe para P3 -> Kernel
+    if (pipe(datos_pipe) == -1) { perror("pipe datos"); exit(1); }
+
     if ((pid1 = fork()) == 0) {
         char *argv[] = {"qemu-riscv32", "./proceso1", NULL};
         lanzar_hijo_exec(argv);
@@ -128,164 +144,142 @@ void ejecutar_escenario_1() {
     printf("[Kernel] Lanzando ./proceso2 (PID %d)...\n", pid2);
     
     if ((pid3 = fork()) == 0) {
+        // P3 escribe al kernel por datos_pipe[1]
+        close(datos_pipe[0]); 
+        dup2(datos_pipe[1], STDOUT_FILENO);
+        close(datos_pipe[1]);
+        // NOTA: P3 leerá del teclado (stdin) ya que no hay pipe P1->P3
         char *argv[] = {"qemu-riscv32", "./proceso3", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso3 (PID %d)...\n", pid3);
+    close(datos_pipe[1]); // El padre no escribe
 
-    // --- 2. Pausar los procesos que deben esperar ---
-    printf("[Kernel] Pausando P2 (PID %d) y P3 (PID %d)\n", pid2, pid3);
-    kill(pid2, SIGSTOP);
-    kill(pid3, SIGSTOP);
-    fflush(stdout); // Asegura que los mensajes salgan
+    printf("[Kernel] Pausando P2 y P3\n");
+    kill(pid2, SIGSTOP); kill(pid3, SIGSTOP); fflush(stdout);
 
-    // --- 3. Ejecutar la cadena de dependencia ---
-    esperar_proceso(pid1, "./proceso1", 0); // Espera a P1
+    esperar_proceso(pid1, "./proceso1", 0);
+    printf("[Kernel] Reanudando P2\n"); fflush(stdout);
+    kill(pid2, SIGCONT); esperar_proceso(pid2, "./proceso2", 0);
+    printf("[Kernel] Reanudando P3\n"); fflush(stdout);
+    kill(pid3, SIGCONT); esperar_proceso(pid3, "./proceso3", TIMEOUT_P3);
     
-    printf("[Kernel] Reanudando P2 (PID %d)\n", pid2);
-    fflush(stdout);
-    kill(pid2, SIGCONT); // Reanuda P2
-    esperar_proceso(pid2, "./proceso2", 0); // Espera a P2
-
-    printf("[Kernel] Reanudando P3 (PID %d)\n", pid3);
-    fflush(stdout);
-    kill(pid3, SIGCONT); // Reanuda P3
-    esperar_proceso(pid3, "./proceso3", TIMEOUT_P3); // Espera a P3
+    leer_datos_p3(datos_pipe[0]);
 }
 
 // ESCENARIO 2: (P1 + P3) -> P2
 void ejecutar_escenario_2() {
     pid_t pid1, pid2, pid3;
-    int uart_pipe[2];
-    if (pipe(uart_pipe) == -1) { perror("pipe"); exit(1); }
+    int uart_pipe[2], datos_pipe[2]; // Dos pipes
+    if (pipe(uart_pipe) == -1) { perror("pipe uart"); exit(1); }
+    if (pipe(datos_pipe) == -1) { perror("pipe datos"); exit(1); }
 
-    // --- 1. Lanzar todos los procesos ---
     if ((pid3 = fork()) == 0) {
-        // HIJO: P3 (Receptor)
-        close(uart_pipe[1]);
-        dup2(uart_pipe[0], STDIN_FILENO); // Redirige stdin
-        close(uart_pipe[0]);
+        // P3 lee de uart_pipe[0], escribe a datos_pipe[1]
+        close(uart_pipe[1]); dup2(uart_pipe[0], STDIN_FILENO); close(uart_pipe[0]);
+        close(datos_pipe[0]); dup2(datos_pipe[1], STDOUT_FILENO); close(datos_pipe[1]);
         char *argv[] = {"qemu-riscv32", "./proceso3", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso3 (PID %d)...\n", pid3);
 
     if ((pid2 = fork()) == 0) {
+        // P2 no usa pipes, cierra todos los extremos
+        close(uart_pipe[0]); close(uart_pipe[1]); close(datos_pipe[0]); close(datos_pipe[1]);
         char *argv[] = {"qemu-riscv32", "./proceso2", "0", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso2 (PID %d)...\n", pid2);
 
     if ((pid1 = fork()) == 0) {
-        // HIJO: P1 (Emisor)
-        close(uart_pipe[0]);
-        dup2(uart_pipe[1], STDOUT_FILENO); // Redirige stdout
-        close(uart_pipe[1]);
+        // P1 escribe a uart_pipe[1]
+        close(datos_pipe[0]); close(datos_pipe[1]); // No usa datos_pipe
+        close(uart_pipe[0]); dup2(uart_pipe[1], STDOUT_FILENO); close(uart_pipe[1]);
         char *argv[] = {"qemu-riscv32", "./proceso1", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso1 (PID %d)...\n", pid1);
 
-    // El padre cierra su copia del pipe
-    close(uart_pipe[0]);
-    close(uart_pipe[1]);
+    // Limpieza de pipes en el padre
+    close(uart_pipe[0]); close(uart_pipe[1]); 
+    close(datos_pipe[1]); // El padre solo lee de datos_pipe[0]
     
-    // --- 2. Pausar los procesos que deben esperar ---
-    printf("[Kernel] Pausando P3 (PID %d) y P2 (PID %d)\n", pid3, pid2);
-    kill(pid3, SIGSTOP); // P3 espera a P1
-    kill(pid2, SIGSTOP); // P2 espera a P1 y P3
-    fflush(stdout);
+    printf("[Kernel] Pausando P3 y P2\n");
+    kill(pid3, SIGSTOP); kill(pid2, SIGSTOP); fflush(stdout);
 
-    // --- 3. Ejecutar la cadena de dependencia ---
-    esperar_proceso(pid1, "./proceso1", 0); // P1 se ejecuta
+    esperar_proceso(pid1, "./proceso1", 0);
+    printf("[Kernel] Reanudando P3\n"); fflush(stdout);
+    kill(pid3, SIGCONT); esperar_proceso(pid3, "./proceso3", 0);
     
-    printf("[Kernel] Reanudando P3 (PID %d)\n", pid3);
-    fflush(stdout);
-    kill(pid3, SIGCONT); // Reanuda P3
-    esperar_proceso(pid3, "./proceso3", 0); // Espera a P3
+    // P3 ya terminó, podemos leer su respuesta
+    leer_datos_p3(datos_pipe[0]);
 
-    printf("[Kernel] Reanudando P2 (PID %d)\n", pid2);
-    fflush(stdout);
-    kill(pid2, SIGCONT); // Reanuda P2
-    esperar_proceso(pid2, "./proceso2", 0); // Espera a P2
+    printf("[Kernel] Reanudando P2\n"); fflush(stdout);
+    kill(pid2, SIGCONT); esperar_proceso(pid2, "./proceso2", 0);
 }
 
 // ESCENARIO 3: P2 -> (P1 + P3)
 void ejecutar_escenario_3() {
     pid_t pid1, pid2, pid3;
-    int uart_pipe[2];
-    if (pipe(uart_pipe) == -1) { perror("pipe"); exit(1); }
+    int uart_pipe[2], datos_pipe[2];
+    if (pipe(uart_pipe) == -1) { perror("pipe uart"); exit(1); }
+    if (pipe(datos_pipe) == -1) { perror("pipe datos"); exit(1); }
 
-    // --- 1. Lanzar todos los procesos ---
     if ((pid2 = fork()) == 0) {
+        close(uart_pipe[0]); close(uart_pipe[1]); close(datos_pipe[0]); close(datos_pipe[1]);
         char *argv[] = {"qemu-riscv32", "./proceso2", "1", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso2 (PID %d)...\n", pid2);
 
     if ((pid3 = fork()) == 0) {
-        close(uart_pipe[1]);
-        dup2(uart_pipe[0], STDIN_FILENO);
-        close(uart_pipe[0]);
+        close(uart_pipe[1]); dup2(uart_pipe[0], STDIN_FILENO); close(uart_pipe[0]);
+        close(datos_pipe[0]); dup2(datos_pipe[1], STDOUT_FILENO); close(datos_pipe[1]);
         char *argv[] = {"qemu-riscv32", "./proceso3", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso3 (PID %d)...\n", pid3);
 
     if ((pid1 = fork()) == 0) {
-        close(uart_pipe[0]);
-        dup2(uart_pipe[1], STDOUT_FILENO);
-        close(uart_pipe[1]);
+        close(datos_pipe[0]); close(datos_pipe[1]);
+        close(uart_pipe[0]); dup2(uart_pipe[1], STDOUT_FILENO); close(uart_pipe[1]);
         char *argv[] = {"qemu-riscv32", "./proceso1", NULL};
         lanzar_hijo_exec(argv);
     }
     printf("[Kernel] Lanzando ./proceso1 (PID %d)...\n", pid1);
 
-    close(uart_pipe[0]);
-    close(uart_pipe[1]);
+    close(uart_pipe[0]); close(uart_pipe[1]); close(datos_pipe[1]);
     
-    // --- 2. Pausar los procesos que deben esperar ---
-    printf("[Kernel] Pausando P1 (PID %d) y P3 (PID %d)\n", pid1, pid3);
-    kill(pid1, SIGSTOP); // P1 espera a P2
-    kill(pid3, SIGSTOP); // P3 espera a P1
-    fflush(stdout);
+    printf("[Kernel] Pausando P1 y P3\n");
+    kill(pid1, SIGSTOP); kill(pid3, SIGSTOP); fflush(stdout);
 
-    // --- 3. Ejecutar la cadena de dependencia ---
-    esperar_proceso(pid2, "./proceso2", 0); // P2 se ejecuta
-    
-    printf("[Kernel] Reanudando P1 (PID %d)\n", pid1);
-    fflush(stdout);
-    kill(pid1, SIGCONT); // Reanuda P1
-    esperar_proceso(pid1, "./proceso1", 0); // Espera a P1
+    esperar_proceso(pid2, "./proceso2", 0);
+    printf("[Kernel] Reanudando P1\n"); fflush(stdout);
+    kill(pid1, SIGCONT); esperar_proceso(pid1, "./proceso1", 0);
+    printf("[Kernel] Reanudando P3\n"); fflush(stdout);
+    kill(pid3, SIGCONT); esperar_proceso(pid3, "./proceso3", 0);
 
-    printf("[Kernel] Reanudando P3 (PID %d)\n", pid3);
-    fflush(stdout);
-    kill(pid3, SIGCONT); // Reanuda P3
-    esperar_proceso(pid3, "./proceso3", 0); // Espera a P3
+    leer_datos_p3(datos_pipe[0]);
 }
 
 // Ejecuta el escenario principal
 void ejecutar_escenario() {
     switch (escenario_actual) {
         case 1:
-            printf("--- Escenario 1: [P1] -> [P2] -> [P3] (Concurrente-Pausado) ---\n");
+            printf("--- Escenario 1: [P1] -> [P2] -> [P3] ---\n");
             ejecutar_escenario_1();
             break;
-
         case 2:
-            printf("--- Escenario 2: [(P1 + P3)] -> [P2] (Concurrente-Pausado) ---\n");
+            printf("--- Escenario 2: [(P1 + P3)] -> [P2] ---\n");
             ejecutar_escenario_2();
             break;
-
         case 3:
-            printf("--- Escenario 3: [P2] -> [(P1 + P3)] (Concurrente-Pausado) ---\n");
+            printf("--- Escenario 3: [P2] -> [(P1 + P3)] ---\n");
             ejecutar_escenario_3();
             break;
-
         case 4:
-            printf("--- Escenario 4: En desarrollo (modo automático con syscalls) ---\n");
+            printf("--- Escenario 4: En desarrollo ---\n");
             break;
-
         default:
             printf("[Kernel] Error: Escenario no válido.\n");
             break;
@@ -300,40 +294,30 @@ int main() {
 
     while (1) {
         printf("\n--- Inicio del ciclo #%d ---\n", ciclo);
-        
-        inicializar_ciclo(); // Resetea stats
+        inicializar_ciclo();
 
         // Pide el escenario solo la primera vez
         if (escenario_actual == 0) {
             int temp;
-            printf("Seleccione el escenario de ejecución:\n");
-            printf("  1: P1 → P2 → P3\n");
-            printf("  2: P1 → P3 → P2\n");
-            printf("  3: P2 → P1 → P3\n");
-            printf("  4: En desarrollo\n");
-            printf("Escenario (1-4): ");
-
-            if (scanf("%d", &temp) == 1 && temp >= 1 && temp <= 4)
+            printf("Seleccione el escenario de ejecución (1-4): ");
+            if (scanf("%d", &temp) == 1 && temp >= 1 && temp <= 4) {
                 escenario_actual = temp;
-            else {
+            } else {
                 while (fgetc(stdin) != '\n'); // Limpia buffer
-                printf("[Kernel] Error: opción inválida.\n");
             }
         }
 
         // Ejecuta el escenario seleccionado
         if (escenario_actual != 0) {
-             printf("\n[Kernel] Ejecutando escenario persistente: %d...\n", escenario_actual);
+             printf("\n[Kernel] Ejecutando escenario: %d...\n", escenario_actual);
              fflush(stdout);
             ejecutar_escenario();
         }
 
         mostrar_tabla_recursos(); // Imprime la tabla de resumen
-
         printf("--- Fin de ciclo #%d ---\n", ciclo);
         ciclo++;
         sleep(10); // Pausa antes de repetir
     }
-
     return 0;
 }
