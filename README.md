@@ -14,3 +14,9 @@ Luego debe colocar el siguiente comando para ejecutar el kernel
 ```bash
 ./kernel
 ```
+
+Link del documento con explicación del codigo:
+
+```bash
+https://docs.google.com/document/d/1GNW5cXfPfhlicpvOLGHvWKd9brQbPIR_reR7-qulXe0/edit?usp=sharing
+```
