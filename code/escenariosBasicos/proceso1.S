@@ -39,12 +39,12 @@ bucle_lectura:
     li t1, 10            # Cargar ASCII de salto de linea o "\n" en t1
     bne t0, t1, bucle_lectura # Si no es salto de línea, seguir leyendo. Ejemplo 105 -> 1-0-5 -> salto de línea
 
-    # Espera real de 2 segundos
-    jal ra, esperar_2s # Guarda en "ra" la dirección de retorno
+    # Espera real de 1 segundo
+    jal ra, esperar_1s # Guarda en "ra" la dirección de retorno
     j bucle_lectura
 
-# Delay real de 2 segundos
-esperar_2s:
+# Delay real de 1 segundo
+esperar_1s:
     li t3, 0               # Inicializamos un contador externo en 0
 
 delay_loop:
@@ -55,9 +55,9 @@ inner:
     bnez t4, inner         # Si aún no llega a 0, repetir
 
     addi t3, t3, 1         # Incrementamos el contador externo (pasó una iteración "inner")
-    li t5, 40              # Queremos repetir 40 veces
+    li t5, 20              # Queremos repetir 20 veces
 
-    blt t3, t5, delay_loop # Si no hemos llegado a 40, repetir el "delay_loop"
+    blt t3, t5, delay_loop # Si no hemos llegado a 20, repetir el "delay_loop"
 
     ret                    # Regresa al programa usando la dirección guardada en "ra"
 

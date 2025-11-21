@@ -7,9 +7,8 @@ import os
 # 1. CONFIGURACIÓN
 # ===============================================
 
-# --- DEFINE AQUÍ EL NÚMERO DE ESCENARIO A ANALIZAR ---
-# Asegúrate de que los archivos metricas_mision_[N].json y metricas_total_[N].json existan.
-ESCENARIO_NUMERO = 3
+# Defición del escenario a analizar
+ESCENARIO_NUMERO = 2
 
 # ===============================================
 # 2. FUNCIONES DE CARGA DE DATOS
@@ -45,7 +44,6 @@ def cargar_datos_json(escenario):
         with open(nombre_total, 'r') as f:
             datos_total_bruto = json.load(f)
             
-            # Adaptar la estructura del JSON total al diccionario simple usado para la tabla
             datos_total = {
                 "Escenario Analizado": datos_total_bruto.get("escenario", escenario),
                 "Total de Ciclos Acumulados": datos_total_bruto.get("total_ciclos_acumulados", 0),
@@ -109,12 +107,14 @@ def generar_tabla_detallada(data):
             # Calcular tiempo pausado (es 0 para P2 si no está en las métricas)
             tiempo_pausado = p_data.get('tiempo_pausado_total', 0.0)
             num_pausas = p_data.get('num_pausas', 0)
+            quantum_dado = p_data.get('quantum_dado', 0)
+            quantum_usado = p_data.get('quantum_usado', 0)
             
             registros.append({
                 'Ciclo': ciclo,
                 'Proceso': nombre_display,
-                'T. Total (Wall)': ciclo_data['tiempo_total_ciclo'],
-                'T. Muerto Kernel': ciclo_data['tiempo_muerto_kernel'],
+                'T. Total': p_data['time_real'],
+                'Quantum Dado/Usado': f"{quantum_dado}/{quantum_usado}",
                 'CPU Efectiva (s)': p_data['ejecucion_efectiva'],
                 'T. Pausado (s)': tiempo_pausado,
                 'Pausas Totales': num_pausas,
@@ -122,19 +122,21 @@ def generar_tabla_detallada(data):
                 'Memoria Pico (KB)': p_data['memoria_pico_kb']
             })
 
-
     df = pd.DataFrame(registros)
     
     # 2. Formatear las columnas
-    df['T. Total (Wall)'] = df['T. Total (Wall)'].apply(lambda x: f"{x:.2f}s")
-    df['T. Muerto Kernel'] = df['T. Muerto Kernel'].apply(lambda x: f"{x:.4f}s")
+    # SE USAN LOS NOMBRES DE COLUMNA TAL COMO SE DEFINIERON EN EL DICCIONARIO registros
+    df['T. Total'] = df['T. Total'].apply(lambda x: f"{x:.2f}s") 
     df['CPU Efectiva (s)'] = df['CPU Efectiva (s)'].apply(lambda x: f"{x:.4f}")
     df['T. Pausado (s)'] = df['T. Pausado (s)'].apply(lambda x: f"{x:.4f}")
     df['Memoria Pico (KB)'] = df['Memoria Pico (KB)'].apply(lambda x: f"{x:,}")
 
     # 3. Imprimir la tabla
+    print("\n" + "="*80)
     print("✨ RENDIMIENTO DETALLADO POR CICLO (P1, P2, P3) ✨".center(80))
+    print("="*80)
     print(tabulate(df, headers="keys", tablefmt="fancy_grid", showindex=False))
+    print("="*80 + "\n")
 
 # ===============================================
 # 4. EJECUCIÓN PRINCIPAL

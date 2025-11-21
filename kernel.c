@@ -357,6 +357,55 @@ void enviar_contenido_archivo_a_pipe(int pipe_fd_escritura, const char *archivo)
     fclose(fp);
 }
 
+unsigned long obtener_pc_riscv(const char *ruta_log)
+{
+    char comando[256];
+
+    snprintf(comando, sizeof(comando), "tail -n 200 %s", ruta_log);
+
+    FILE *fp = popen(comando, "r");
+    if (!fp)
+        return 0;
+
+    char linea[256];
+    unsigned long ultimo_pc = 0;
+
+    while (fgets(linea, sizeof(linea), fp))
+    {
+
+        for (int i = 0; linea[i]; i++)
+            linea[i] = tolower(linea[i]);
+
+        char *ptr = linea;
+        while ((ptr = strstr(ptr, "pc")) != NULL)
+        {
+
+            int inicio_valido = (ptr == linea) || !isalnum(*(ptr - 1));
+
+            int fin_valido = !isalnum(*(ptr + 2));
+
+            if (inicio_valido && fin_valido)
+            {
+
+                char *num_ptr = ptr + 2;
+
+                while (*num_ptr && !isxdigit(*num_ptr))
+                    num_ptr++;
+
+                if (*num_ptr)
+                {
+                    ultimo_pc = strtoul(num_ptr, NULL, 16);
+                }
+            }
+
+            ptr += 2;
+        }
+    }
+
+    pclose(fp);
+    return ultimo_pc;
+}
+
 void ejecutar_escenario_1()
 {
     pid_t pid1, pid2, pid3;
@@ -520,7 +569,12 @@ void ejecutar_escenario_2()
         close(p3_to_kernel_pipe[0]);
         close(p3_to_kernel_pipe[1]);
 
-        char *argv[] = {"qemu-riscv32", "./code/escenariosBasicos/proceso1", NULL};
+        char *argv[] = {
+            "qemu-riscv32",
+            "-d", "cpu",
+            "-D", "p1_trace.log",
+            "./code/escenariosBasicos/proceso1",
+            NULL};
         lanzar_hijo_exec(argv);
     }
 
@@ -537,7 +591,12 @@ void ejecutar_escenario_2()
         dup2(p3_to_kernel_pipe[1], STDOUT_FILENO);
         close(p3_to_kernel_pipe[1]);
 
-        char *argv[] = {"qemu-riscv32", "./code/escenariosBasicos/proceso3", NULL};
+        char *argv[] = {
+            "qemu-riscv32",
+            "-d", "cpu",
+            "-D", "p3_trace.log",
+            "./code/escenariosBasicos/proceso3",
+            NULL};
         lanzar_hijo_exec(argv);
     }
 
@@ -597,6 +656,9 @@ void ejecutar_escenario_2()
                 printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Deteniendo %s%s (PID %d). Tiempo agotado.\n",
                        color_proceso("./proceso1"), nombre_legible("./proceso1"), pid1);
                 kill(pid1, SIGSTOP);
+                usleep(10000);
+                unsigned long pc_p1 = obtener_pc_riscv("p1_trace.log");
+                printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "El proceso 1 se quedó en el PC: 0x%lx\n" ANSI_RESET, pc_p1);
                 p1_full_stats.seniales_recibidas[SIGSTOP]++;
                 gettimeofday(&p1_last_stop_time, NULL);
                 p1_full_stats.num_pausas++;
@@ -641,6 +703,9 @@ void ejecutar_escenario_2()
                 printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Deteniendo %s%s (PID %d). Tiempo agotado.\n",
                        color_proceso("./proceso3"), nombre_legible("./proceso3"), pid3);
                 kill(pid3, SIGSTOP);
+                usleep(10000);
+                unsigned long pc_p1 = obtener_pc_riscv("p3_trace.log");
+                printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "El proceso 1 se quedó en el PC: 0x%lx\n" ANSI_RESET, pc_p1);
                 p3_full_stats.seniales_recibidas[SIGSTOP]++;
                 gettimeofday(&p3_last_stop_time, NULL);
                 p3_full_stats.num_pausas++;

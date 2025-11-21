@@ -42,14 +42,14 @@ bucle_lectura:
     li t1, 10            # Cargar ASCII de '\n' en t1
     bne t0, t1, bucle_lectura # Si no es salto de línea, seguir leyendo
 
-    # Es un salto de línea, esperamos 2 segundos
-    jal ra, esperar_2s
+    # Es un salto de línea, esperamos 1 segundo
+    jal ra, esperar_1s
     j bucle_lectura      # Volver al bucle
 
 # Funciones (Copiadas de P1)
 
-#    Delay real de 2 segundos
-esperar_2s:
+#    Delay real de 1 segundo
+esperar_1s:
     li t3, 0
 
 delay_loop:
@@ -61,7 +61,7 @@ inner:
     addi t4, t4, -1
     bnez t4, inner
     addi t3, t3, 1
-    li t5, 40            # repetir 40 veces (40 * 55ms ≈ 2.2s)
+    li t5, 20            # repetir 20 veces
     blt t3, t5, delay_loop
     ret
 
