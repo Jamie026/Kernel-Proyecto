@@ -1,0 +1,12 @@
+[
+	{
+		"timestamp": 1764274515,
+		"escenario": 3,
+		"total_ciclos_reportados": 5,
+		"tiempo_real_total": 200.066179,
+		"tiempo_total_cpu": 164.531497,
+		"cpu_usuario_acumulado": 164.473421,
+		"cpu_sistema_acumulado": 0.058076,
+		"memoria_pico_total_kb": 115540
+	}
+]

@@ -1,0 +1,22 @@
+[
+	{
+		"timestamp": 1764277480,
+		"escenario": 4,
+		"total_ciclos_reportados": 5,
+		"tiempo_real_total": 165.510386,
+		"tiempo_total_cpu": 165.138502,
+		"cpu_usuario_acumulado": 164.697589,
+		"cpu_sistema_acumulado": 0.440913,
+		"memoria_pico_total_kb": 38812
+	},
+	{
+		"timestamp": 1764277680,
+		"escenario": 4,
+		"total_ciclos_reportados": 5,
+		"tiempo_real_total": 169.515680,
+		"tiempo_total_cpu": 169.236325,
+		"cpu_usuario_acumulado": 169.084445,
+		"cpu_sistema_acumulado": 0.151880,
+		"memoria_pico_total_kb": 39132
+	}
+]

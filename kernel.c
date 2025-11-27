@@ -8,6 +8,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <time.h>
 
 #define ANSI_RESET "\x1B[0m"
 #define ANSI_RED "\x1B[31m"
@@ -271,14 +272,17 @@ void esperar_proceso(pid_t pid, const char *nombre_proceso, int timeout_sec, str
         wall_time = timeval_diff(start_time, &end_time);
         proceso_terminado(nombre_proceso, pid);
     }
-    else
     {
         printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Esperando finalización de %s%s (PID %d)..." ANSI_RESET "\n",
                color_proceso(nombre_proceso), nombre_legible(nombre_proceso), pid);
         fflush(stdout);
+
         wait4(pid, &status, 0, &usage);
+
         gettimeofday(&end_time, NULL);
         wall_time = timeval_diff(start_time, &end_time);
+
+        fflush(stdout);
         proceso_terminado(nombre_proceso, pid);
     }
 
@@ -704,8 +708,8 @@ void ejecutar_escenario_2()
                        color_proceso("./proceso3"), nombre_legible("./proceso3"), pid3);
                 kill(pid3, SIGSTOP);
                 usleep(10000);
-                unsigned long pc_p1 = obtener_pc_riscv("p3_trace.log");
-                printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "El proceso 1 se quedó en el PC: 0x%lx\n" ANSI_RESET, pc_p1);
+                unsigned long pc_p3 = obtener_pc_riscv("p3_trace.log");
+                printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "El proceso 3 se quedó en el PC: 0x%lx\n" ANSI_RESET, pc_p3);
                 p3_full_stats.seniales_recibidas[SIGSTOP]++;
                 gettimeofday(&p3_last_stop_time, NULL);
                 p3_full_stats.num_pausas++;
@@ -972,6 +976,31 @@ void ejecutar_escenario_3()
     printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Ciclo finalizado.\n");
 }
 
+void ejecutar_escenario_4()
+{
+    pid_t pid1;
+    int p1_input_pipe[2];
+    if (pipe(p1_input_pipe) == -1)
+    {
+        perror("pipe");
+        exit(1);
+    }
+    if ((pid1 = fork()) == 0)
+    {
+        close(p1_input_pipe[1]);
+        dup2(p1_input_pipe[0], STDIN_FILENO);
+        close(p1_input_pipe[0]);
+
+        char *argv[] = {"qemu-riscv32", "./code/escenariosSyscall/proceso1", NULL};
+        lanzar_hijo_exec(argv);
+    }
+    close(p1_input_pipe[0]);
+    enviar_contenido_archivo_a_pipe(p1_input_pipe[1], "medidas.txt");
+    close(p1_input_pipe[1]);
+    gettimeofday(&p1_start, NULL);
+    esperar_proceso(pid1, "./code/escenariosSyscall/proceso1", 0, &p1_start);
+}
+
 void ejecutar_escenario()
 {
     switch (escenario_actual)
@@ -989,7 +1018,8 @@ void ejecutar_escenario()
         ejecutar_escenario_3();
         break;
     case 4:
-        printf(COLOR_CICLO "--- Escenario 4: En desarrollo ---\n" ANSI_RESET);
+        printf(COLOR_CICLO "--- Escenario 4: Syscall automatico ---\n" ANSI_RESET);
+        ejecutar_escenario_4();
         break;
     default:
         printf(COLOR_ERROR "[Control Central] Error: Escenario de ejecución no válido." ANSI_RESET "\n");
@@ -1102,74 +1132,89 @@ void escribir_json_stats(FILE *fp, const char *nombre, ProcesoStats *stats, int 
 
 void exportar_reporte_acumulado_a_json()
 {
-
     char nombre_archivo[64];
     snprintf(nombre_archivo, sizeof(nombre_archivo), "metricas_total_%d.json", escenario_actual);
 
-    FILE *fp = fopen(nombre_archivo, "w");
+    FILE *fp = fopen(nombre_archivo, "r+");
 
     if (fp == NULL)
     {
-        fprintf(stderr, COLOR_ERROR "Error al abrir %s\n" ANSI_RESET, nombre_archivo);
-        return;
+        fp = fopen(nombre_archivo, "w");
+        if (!fp)
+        {
+            fprintf(stderr, COLOR_ERROR "Error al abrir %s\n" ANSI_RESET, nombre_archivo);
+            return;
+        }
+        fprintf(fp, "[\n");
+    }
+    else
+    {
+        fseek(fp, 0, SEEK_END);
+        if (ftell(fp) > 2)
+        {
+            fseek(fp, -2, SEEK_END);
+            fprintf(fp, ",\n");
+        }
     }
 
     double cpu_total = acumulador_global.cpu_usuario_total + acumulador_global.cpu_sistema_total;
 
-    fprintf(fp, "{\n");
-    fprintf(fp, "\t\"escenario\": %d,\n", escenario_actual);
-    fprintf(fp, "\t\"total_ciclos_acumulados\": %d,\n", acumulador_global.total_ciclos_acumulados);
-    fprintf(fp, "\t\"tiempo_real_total\": %.6f,\n", acumulador_global.tiempo_real_total);
-    fprintf(fp, "\t\"tiempo_total_cpu\": %.6f,\n", cpu_total);
-    fprintf(fp, "\t\"cpu_usuario_acumulado\": %.6f,\n", acumulador_global.cpu_usuario_total);
-    fprintf(fp, "\t\"cpu_sistema_acumulado\": %.6f,\n", acumulador_global.cpu_sistema_total);
-    fprintf(fp, "\t\"memoria_pico_total_kb\": %ld\n", acumulador_global.memoria_pico_total_kb);
-    fprintf(fp, "}\n");
+    fprintf(fp, "\t{\n");
+    fprintf(fp, "\t\t\"timestamp\": %ld,\n", time(NULL));
+    fprintf(fp, "\t\t\"escenario\": %d,\n", escenario_actual);
+    fprintf(fp, "\t\t\"total_ciclos_reportados\": %d,\n", acumulador_global.total_ciclos_acumulados);
+    fprintf(fp, "\t\t\"tiempo_real_total\": %.6f,\n", acumulador_global.tiempo_real_total);
+    fprintf(fp, "\t\t\"tiempo_total_cpu\": %.6f,\n", cpu_total);
+    fprintf(fp, "\t\t\"cpu_usuario_acumulado\": %.6f,\n", acumulador_global.cpu_usuario_total);
+    fprintf(fp, "\t\t\"cpu_sistema_acumulado\": %.6f,\n", acumulador_global.cpu_sistema_total);
+    fprintf(fp, "\t\t\"memoria_pico_total_kb\": %ld\n", acumulador_global.memoria_pico_total_kb);
+    fprintf(fp, "\t}\n]");
 
     fclose(fp);
 
-    printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "REPORTE GLOBAL JSON: Exportado a '%s'.\n" ANSI_RESET, nombre_archivo);
+    printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "REPORTE GLOBAL JSON: Actualizado en '%s'.\n" ANSI_RESET, nombre_archivo);
 }
 
 void exportar_resultados_a_json()
 {
     char nombre_archivo[64];
     snprintf(nombre_archivo, sizeof(nombre_archivo), "metricas_mision_%d.json", escenario_actual);
-    FILE *fp = fopen(nombre_archivo, "a");
+
+    FILE *fp = fopen(nombre_archivo, "r+");
+
     if (fp == NULL)
     {
-        perror(COLOR_ERROR "Error al abrir metricas_mision.json" ANSI_RESET);
-        return;
-    }
 
-    if (ftell(fp) == 0)
-    {
+        fp = fopen(nombre_archivo, "w");
+        if (fp == NULL)
+        {
+            perror(COLOR_ERROR "Error al crear metricas_mision.json" ANSI_RESET);
+            return;
+        }
         fprintf(fp, "[\n");
     }
     else
     {
-        fseek(fp, -2, SEEK_END);
-        char last_char = fgetc(fp);
-        if (last_char != '[')
+
+        fseek(fp, 0, SEEK_END);
+        long tamano = ftell(fp);
+
+        if (tamano > 2)
         {
+            fseek(fp, -2, SEEK_END);
             fprintf(fp, ",\n");
-        }
-        else
-        {
-            fseek(fp, 0, SEEK_END);
         }
     }
 
     for (int i = 0; i < indice_resultados; i++)
     {
-        if (i > 0)
-            fprintf(fp, ",\n");
-
         fprintf(fp, "\t{\n");
         fprintf(fp, "\t\t\"ciclo\": %d,\n", resultados_ciclos[i].ciclo);
         fprintf(fp, "\t\t\"escenario\": %d,\n", resultados_ciclos[i].escenario);
         fprintf(fp, "\t\t\"tiempo_total_ciclo\": %.6f,\n", resultados_ciclos[i].tiempo_total_ciclo);
-        fprintf(fp, "\t\t\"speedup_vs_e1\": %.2f,\n", resultados_ciclos[i].speedup);
+
+        fprintf(fp, "\t\t\"speedup_vs_e2\": %.2f,\n", resultados_ciclos[i].speedup);
+
         fprintf(fp, "\t\t\"tiempo_muerto_kernel\": %.6f,\n", resultados_ciclos[i].tiempo_muerto_kernel);
         fprintf(fp, "\t\t\"procesos\": {\n");
 
@@ -1179,12 +1224,17 @@ void exportar_resultados_a_json()
 
         fprintf(fp, "\t\t}\n");
         fprintf(fp, "\t}");
+
+        if (i < indice_resultados - 1)
+        {
+            fprintf(fp, ",\n");
+        }
     }
 
     fprintf(fp, "\n]");
     fclose(fp);
 
-    printf(COLOR_KERNEL "\n[Control Central] " ANSI_RESET "REPORTE JSON COMPLETO: Se han exportado %d ciclos a 'metricas_mision.json'.\n" ANSI_RESET, indice_resultados);
+    printf(COLOR_KERNEL "\n[Control Central] " ANSI_RESET "REPORTE JSON ACTUALIZADO: Se añadieron %d ciclos a '%s'.\n" ANSI_RESET, indice_resultados, nombre_archivo);
     indice_resultados = 0;
 }
 
@@ -1220,7 +1270,7 @@ void almacenar_resultado_ciclo(double tiempo_total_ciclo, double speedup)
 int main()
 {
     printf(COLOR_KERNEL "[Centro de Control] Iniciando Orquestador de Misión." ANSI_RESET "\n");
-    printf(COLOR_YELLOW "El ciclo de monitoreo se repetirá cada 10 segundos.\n Presione Ctrl + Z para reiniciar y seleccionar un nuevo protocolo" ANSI_RESET "\n");
+    printf(COLOR_YELLOW "El ciclo de monitoreo se repetirá cada 5 segundos.\n Presione Ctrl + Z para reiniciar y seleccionar un nuevo protocolo" ANSI_RESET "\n");
 
     signal(SIGTSTP, reiniciar_escenario);
 
@@ -1257,7 +1307,6 @@ int main()
         }
 
         struct timeval ciclo_end;
-
         gettimeofday(&ciclo_end, NULL);
 
         double tiempo_total_ciclo = timeval_diff(&ciclo_start, &ciclo_end);
@@ -1267,24 +1316,30 @@ int main()
 
         if (escenario_actual == 2)
         {
-            if (tiempo_escenario_2 == 0.0)
-            {
-                tiempo_escenario_2 = tiempo_total_ciclo;
-                printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Tiempo base (Escenario 2 establecido: %.6f s\n" ANSI_RESET, tiempo_escenario_2);
-            }
-        }
 
-        else if (escenario_actual != 2 && tiempo_escenario_2 > 0.0)
+            tiempo_escenario_2 = tiempo_total_ciclo;
+            printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Referencia (Escenario 2): %.6f s\n" ANSI_RESET, tiempo_escenario_2);
+            speedup = 1.0;
+        }
+        else
         {
-            speedup = tiempo_escenario_2 / tiempo_total_ciclo;
-            printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "Mejora (SpeedUp) vs Escenario 2: %.2fx\n" ANSI_RESET, speedup);
+            if (tiempo_escenario_2 > 0.0)
+            {
+
+                speedup = tiempo_escenario_2 / tiempo_total_ciclo;
+                printf(COLOR_KERNEL "[Control Central] " ANSI_RESET "SpeedUp vs Escenario 2: " ANSI_BR_GREEN "%.2fx\n" ANSI_RESET, speedup);
+            }
+            else
+            {
+                printf(COLOR_KERNEL "[Control Central] " ANSI_YELLOW "Nota: Ejecute el Escenario 2 al menos una vez para calcular el SpeedUp.\n" ANSI_RESET);
+            }
         }
 
         almacenar_resultado_ciclo(tiempo_total_ciclo, speedup);
 
         printf(COLOR_CICLO "--- Fin de ciclo #%d ---\n" ANSI_RESET, ciclo_actual++);
 
-        sleep(10);
+        sleep(5);
     }
 
     return 0;

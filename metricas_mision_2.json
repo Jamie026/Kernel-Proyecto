@@ -2,648 +2,646 @@
 	{
 		"ciclo": 0,
 		"escenario": 2,
-		"tiempo_total_ciclo": 120.039693,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.034699,
+		"tiempo_total_ciclo": 55.091003,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.086825,
 		"procesos": {
 		"proceso1": {
-			"time_real": 60.000573,
-			"cpu_user": 57.163918,
-			"cpu_sys": 0.005999,
-			"memoria_pico_kb": 7760,
-			"cambios_contexto_vol": 26,
-			"cambios_contexto_inv": 961,
-			"ejecucion_efectiva": 57.169917,
-			"num_pausas": 6,
-			"tiempo_pausado_total": 25.017017,
-			"quantum_dado": 60.000000,
-			"quantum_usado": 60.000740
+			"time_real": 30.000256,
+			"cpu_user": 21.191819,
+			"cpu_sys": 0.007000,
+			"memoria_pico_kb": 7728,
+			"cambios_contexto_vol": 17,
+			"cambios_contexto_inv": 159,
+			"ejecucion_efectiva": 21.198819,
+			"num_pausas": 3,
+			"tiempo_pausado_total": 10.032559,
+			"quantum_dado": 30.000000,
+			"quantum_usado": 30.024397
 		},
 		"proceso2": {
-			"time_real": 0.003062,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.003050,
-			"memoria_pico_kb": 7720,
+			"time_real": 0.003335,
+			"cpu_user": 0.000820,
+			"cpu_sys": 0.002462,
+			"memoria_pico_kb": 7800,
 			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.003050
+			"cambios_contexto_inv": 1,
+			"ejecucion_efectiva": 0.003282
 		},
 		"proceso3": {
-			"time_real": 60.001359,
-			"cpu_user": 55.704248,
-			"cpu_sys": 0.024986,
-			"memoria_pico_kb": 7712,
-			"cambios_contexto_vol": 44,
-			"cambios_contexto_inv": 3238,
-			"ejecucion_efectiva": 55.729234,
-			"num_pausas": 12,
-			"tiempo_pausado_total": 60.034829,
-			"quantum_dado": 60.000000,
-			"quantum_usado": 60.001504
+			"time_real": 25.000587,
+			"cpu_user": 21.140516,
+			"cpu_sys": 0.004993,
+			"memoria_pico_kb": 7728,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 1411,
+			"ejecucion_efectiva": 21.145509,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 30.038618,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.048714
 		}		}
 	},
 	{
 		"ciclo": 1,
 		"escenario": 2,
-		"tiempo_total_ciclo": 115.035283,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.030655,
+		"tiempo_total_ciclo": 55.088785,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.084264,
 		"procesos": {
 		"proceso1": {
-			"time_real": 60.000560,
-			"cpu_user": 52.604866,
-			"cpu_sys": 0.034973,
-			"memoria_pico_kb": 7664,
-			"cambios_contexto_vol": 26,
-			"cambios_contexto_inv": 4433,
-			"ejecucion_efectiva": 52.639839,
-			"num_pausas": 6,
-			"tiempo_pausado_total": 25.015844,
-			"quantum_dado": 60.000000,
-			"quantum_usado": 60.000682
+			"time_real": 30.000240,
+			"cpu_user": 22.193832,
+			"cpu_sys": 0.013999,
+			"memoria_pico_kb": 7624,
+			"cambios_contexto_vol": 18,
+			"cambios_contexto_inv": 914,
+			"ejecucion_efectiva": 22.207831,
+			"num_pausas": 3,
+			"tiempo_pausado_total": 10.030292,
+			"quantum_dado": 30.000000,
+			"quantum_usado": 30.024250
 		},
 		"proceso2": {
-			"time_real": 0.002830,
-			"cpu_user": 0.001842,
-			"cpu_sys": 0.000921,
+			"time_real": 0.003806,
+			"cpu_user": 0.002685,
+			"cpu_sys": 0.000895,
 			"memoria_pico_kb": 7652,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 1,
+			"ejecucion_efectiva": 0.003580
+		},
+		"proceso3": {
+			"time_real": 25.000475,
+			"cpu_user": 21.778152,
+			"cpu_sys": 0.023978,
+			"memoria_pico_kb": 7688,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 1403,
+			"ejecucion_efectiva": 21.802130,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 30.036535,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.048113
+		}		}
+	},
+	{
+		"ciclo": 2,
+		"escenario": 2,
+		"tiempo_total_ciclo": 55.091317,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.087914,
+		"procesos": {
+		"proceso1": {
+			"time_real": 30.000268,
+			"cpu_user": 22.381212,
+			"cpu_sys": 0.004998,
+			"memoria_pico_kb": 7668,
+			"cambios_contexto_vol": 16,
+			"cambios_contexto_inv": 1146,
+			"ejecucion_efectiva": 22.386210,
+			"num_pausas": 3,
+			"tiempo_pausado_total": 10.030885,
+			"quantum_dado": 30.000000,
+			"quantum_usado": 30.024541
+		},
+		"proceso2": {
+			"time_real": 0.002474,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.002360,
+			"memoria_pico_kb": 7856,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.002360
+		},
+		"proceso3": {
+			"time_real": 25.000661,
+			"cpu_user": 24.070415,
+			"cpu_sys": 0.021962,
+			"memoria_pico_kb": 7656,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 2044,
+			"ejecucion_efectiva": 24.092377,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 30.038415,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.050127
+		}		}
+	},
+	{
+		"ciclo": 3,
+		"escenario": 2,
+		"tiempo_total_ciclo": 55.088730,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.085042,
+		"procesos": {
+		"proceso1": {
+			"time_real": 30.000290,
+			"cpu_user": 23.058113,
+			"cpu_sys": 0.003999,
+			"memoria_pico_kb": 7664,
+			"cambios_contexto_vol": 17,
+			"cambios_contexto_inv": 92,
+			"ejecucion_efectiva": 23.062112,
+			"num_pausas": 3,
+			"tiempo_pausado_total": 10.030705,
+			"quantum_dado": 30.000000,
+			"quantum_usado": 30.024514
+		},
+		"proceso2": {
+			"time_real": 0.002817,
+			"cpu_user": 0.000897,
+			"cpu_sys": 0.001795,
+			"memoria_pico_kb": 7764,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 1,
+			"ejecucion_efectiva": 0.002692
+		},
+		"proceso3": {
+			"time_real": 25.000581,
+			"cpu_user": 21.637652,
+			"cpu_sys": 0.015988,
+			"memoria_pico_kb": 7692,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 825,
+			"ejecucion_efectiva": 21.653640,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 30.036840,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.048681
+		}		}
+	},
+	{
+		"ciclo": 4,
+		"escenario": 2,
+		"tiempo_total_ciclo": 40.061464,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.057732,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000170,
+			"cpu_user": 19.016105,
+			"cpu_sys": 0.007997,
+			"memoria_pico_kb": 7640,
+			"cambios_contexto_vol": 14,
+			"cambios_contexto_inv": 805,
+			"ejecucion_efectiva": 19.024102,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.015100,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012898
+		},
+		"proceso2": {
+			"time_real": 0.003064,
+			"cpu_user": 0.001011,
+			"cpu_sys": 0.002022,
+			"memoria_pico_kb": 7704,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.003033
+		},
+		"proceso3": {
+			"time_real": 20.000498,
+			"cpu_user": 19.456929,
+			"cpu_sys": 0.005999,
+			"memoria_pico_kb": 7720,
+			"cambios_contexto_vol": 20,
+			"cambios_contexto_inv": 166,
+			"ejecucion_efectiva": 19.462928,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.021558,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.036511
+		}		}
+	},
+	{
+		"ciclo": 0,
+		"escenario": 2,
+		"tiempo_total_ciclo": 40.060759,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.056411,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000220,
+			"cpu_user": 19.051825,
+			"cpu_sys": 0.010992,
+			"memoria_pico_kb": 7748,
+			"cambios_contexto_vol": 14,
+			"cambios_contexto_inv": 1027,
+			"ejecucion_efectiva": 19.062817,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014524,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012253
+		},
+		"proceso2": {
+			"time_real": 0.003552,
+			"cpu_user": 0.000811,
+			"cpu_sys": 0.002435,
+			"memoria_pico_kb": 7600,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 2,
+			"ejecucion_efectiva": 0.003246
+		},
+		"proceso3": {
+			"time_real": 20.000576,
+			"cpu_user": 19.540166,
+			"cpu_sys": 0.007999,
+			"memoria_pico_kb": 7656,
+			"cambios_contexto_vol": 20,
+			"cambios_contexto_inv": 501,
+			"ejecucion_efectiva": 19.548165,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.020566,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.036329
+		}		}
+	},
+	{
+		"ciclo": 1,
+		"escenario": 2,
+		"tiempo_total_ciclo": 45.074499,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.070956,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000225,
+			"cpu_user": 19.086151,
+			"cpu_sys": 0.016993,
+			"memoria_pico_kb": 7752,
+			"cambios_contexto_vol": 14,
+			"cambios_contexto_inv": 1240,
+			"ejecucion_efectiva": 19.103144,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.015117,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012124
+		},
+		"proceso2": {
+			"time_real": 0.002716,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.002763,
+			"memoria_pico_kb": 7660,
 			"cambios_contexto_vol": 2,
 			"cambios_contexto_inv": 0,
 			"ejecucion_efectiva": 0.002763
 		},
 		"proceso3": {
-			"time_real": 55.001238,
-			"cpu_user": 54.206637,
-			"cpu_sys": 0.018996,
-			"memoria_pico_kb": 7752,
-			"cambios_contexto_vol": 41,
-			"cambios_contexto_inv": 1383,
-			"ejecucion_efectiva": 54.225633,
-			"num_pausas": 11,
-			"tiempo_pausado_total": 60.030575,
-			"quantum_dado": 55.000000,
-			"quantum_usado": 55.001362
+			"time_real": 25.000602,
+			"cpu_user": 20.351948,
+			"cpu_sys": 0.020985,
+			"memoria_pico_kb": 7660,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 1393,
+			"ejecucion_efectiva": 20.372933,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 20.023403,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.048031
 		}		}
 	},
 	{
 		"ciclo": 2,
 		"escenario": 2,
-		"tiempo_total_ciclo": 115.030458,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.026379,
+		"tiempo_total_ciclo": 45.079538,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.075772,
 		"procesos": {
 		"proceso1": {
-			"time_real": 60.000567,
-			"cpu_user": 54.967139,
-			"cpu_sys": 0.003999,
-			"memoria_pico_kb": 7636,
-			"cambios_contexto_vol": 26,
-			"cambios_contexto_inv": 608,
-			"ejecucion_efectiva": 54.971138,
-			"num_pausas": 6,
-			"tiempo_pausado_total": 25.013545,
-			"quantum_dado": 60.000000,
-			"quantum_usado": 60.000688
-		},
-		"proceso2": {
-			"time_real": 0.002290,
-			"cpu_user": 0.001095,
-			"cpu_sys": 0.001095,
-			"memoria_pico_kb": 7696,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.002190
-		},
-		"proceso3": {
-			"time_real": 55.001222,
-			"cpu_user": 54.225798,
-			"cpu_sys": 0.039975,
-			"memoria_pico_kb": 7680,
-			"cambios_contexto_vol": 41,
-			"cambios_contexto_inv": 3869,
-			"ejecucion_efectiva": 54.265773,
-			"num_pausas": 11,
-			"tiempo_pausado_total": 60.026510,
-			"quantum_dado": 55.000000,
-			"quantum_usado": 55.001340
-		}		}
-	},
-	{
-		"ciclo": 3,
-		"escenario": 2,
-		"tiempo_total_ciclo": 115.031672,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.027279,
-		"procesos": {
-		"proceso1": {
-			"time_real": 60.000626,
-			"cpu_user": 54.152456,
-			"cpu_sys": 0.011994,
-			"memoria_pico_kb": 7648,
-			"cambios_contexto_vol": 25,
-			"cambios_contexto_inv": 1876,
-			"ejecucion_efectiva": 54.164450,
-			"num_pausas": 6,
-			"tiempo_pausado_total": 25.013502,
-			"quantum_dado": 60.000000,
-			"quantum_usado": 60.000755
-		},
-		"proceso2": {
-			"time_real": 0.002516,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.002470,
-			"memoria_pico_kb": 7852,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.002470
-		},
-		"proceso3": {
-			"time_real": 55.001251,
-			"cpu_user": 54.388743,
-			"cpu_sys": 0.002998,
-			"memoria_pico_kb": 7696,
-			"cambios_contexto_vol": 41,
-			"cambios_contexto_inv": 1886,
-			"ejecucion_efectiva": 54.391741,
-			"num_pausas": 11,
-			"tiempo_pausado_total": 60.027250,
-			"quantum_dado": 55.000000,
-			"quantum_usado": 55.001385
-		}		}
-	},
-	{
-		"ciclo": 4,
-		"escenario": 2,
-		"tiempo_total_ciclo": 125.039800,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.034750,
-		"procesos": {
-		"proceso1": {
-			"time_real": 60.000552,
-			"cpu_user": 57.861274,
-			"cpu_sys": 0.003998,
-			"memoria_pico_kb": 7624,
-			"cambios_contexto_vol": 26,
-			"cambios_contexto_inv": 1101,
-			"ejecucion_efectiva": 57.865272,
-			"num_pausas": 6,
-			"tiempo_pausado_total": 25.014055,
-			"quantum_dado": 60.000000,
-			"quantum_usado": 60.000698
-		},
-		"proceso2": {
-			"time_real": 0.002901,
-			"cpu_user": 0.000958,
-			"cpu_sys": 0.001917,
-			"memoria_pico_kb": 7728,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 1,
-			"ejecucion_efectiva": 0.002875
-		},
-		"proceso3": {
-			"time_real": 65.001597,
-			"cpu_user": 61.533377,
-			"cpu_sys": 0.010996,
-			"memoria_pico_kb": 7852,
-			"cambios_contexto_vol": 47,
-			"cambios_contexto_inv": 2023,
-			"ejecucion_efectiva": 61.544373,
-			"num_pausas": 13,
-			"tiempo_pausado_total": 60.034712,
-			"quantum_dado": 65.000000,
-			"quantum_usado": 65.001779
-		}		}
-	}
-],
-	{
-		"ciclo": 0,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.001112,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000458,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000083,
-			"cpu_user": 0.000081,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000081,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000050,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000083
-		},
-		"proceso2": {
-			"time_real": 0.000445,
-			"cpu_user": 0.000358,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000358
-		},
-		"proceso3": {
-			"time_real": 5.000126,
-			"cpu_user": 0.000662,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 4,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000662,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000154,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000126
-		}		}
-	},
-	{
-		"ciclo": 1,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.001050,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000337,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000130,
-			"cpu_user": 0.000077,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000077,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000051,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000130
-		},
-		"proceso2": {
-			"time_real": 0.000450,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.000321,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000321
-		},
-		"proceso3": {
-			"time_real": 5.000133,
-			"cpu_user": 0.000038,
-			"cpu_sys": 0.000360,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000398,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000199,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000133
-		}		}
-	},
-	{
-		"ciclo": 2,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.001232,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000423,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000089,
-			"cpu_user": 0.000079,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000079,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000050,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000089
-		},
-		"proceso2": {
-			"time_real": 0.000583,
-			"cpu_user": 0.000474,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000474
-		},
-		"proceso3": {
-			"time_real": 5.000137,
-			"cpu_user": 0.000049,
-			"cpu_sys": 0.000391,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000440,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000162,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000137
-		}		}
-	},
-	{
-		"ciclo": 3,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.001361,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000534,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000082,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.000148,
-			"memoria_pico_kb": 540,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000148,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000072,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000082
-		},
-		"proceso2": {
-			"time_real": 0.000603,
-			"cpu_user": 0.000451,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000451
-		},
-		"proceso3": {
-			"time_real": 5.000142,
-			"cpu_user": 0.000425,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000425,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000175,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000142
-		}		}
-	},
-	{
-		"ciclo": 4,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.001230,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000369,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000171,
-			"cpu_user": 0.000314,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000314,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000047,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000171
-		},
-		"proceso2": {
-			"time_real": 0.000629,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.000415,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 1,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000415
-		},
-		"proceso3": {
-			"time_real": 5.000061,
-			"cpu_user": 0.000024,
-			"cpu_sys": 0.000462,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000486,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000239,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000061
-		}		}
-	}
-],
-	{
-		"ciclo": 0,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.004107,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000731,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000068,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.000368,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 1,
-			"ejecucion_efectiva": 0.000368,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000048,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000068
-		},
-		"proceso2": {
-			"time_real": 0.003119,
-			"cpu_user": 0.001006,
-			"cpu_sys": 0.002012,
-			"memoria_pico_kb": 7652,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 1,
-			"ejecucion_efectiva": 0.003018
-		},
-		"proceso3": {
-			"time_real": 5.000189,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.000321,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 3,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000321,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000152,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000189
-		}		}
-	},
-	{
-		"ciclo": 1,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.004324,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000817,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000129,
-			"cpu_user": 0.000380,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 3,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000380,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000038,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000129
-		},
-		"proceso2": {
-			"time_real": 0.003286,
-			"cpu_user": 0.001088,
-			"cpu_sys": 0.002176,
-			"memoria_pico_kb": 7740,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.003264
-		},
-		"proceso3": {
-			"time_real": 5.000092,
-			"cpu_user": 0.000325,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000325,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000189,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000092
-		}		}
-	},
-	{
-		"ciclo": 2,
-		"escenario": 2,
-		"tiempo_total_ciclo": 15.003323,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000736,
-		"procesos": {
-		"proceso1": {
-			"time_real": 10.000074,
-			"cpu_user": 0.000344,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000344,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000036,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000074
-		},
-		"proceso2": {
-			"time_real": 0.002433,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.002291,
+			"time_real": 20.000191,
+			"cpu_user": 19.189728,
+			"cpu_sys": 0.010994,
 			"memoria_pico_kb": 7720,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 2,
-			"ejecucion_efectiva": 0.002291
+			"cambios_contexto_vol": 14,
+			"cambios_contexto_inv": 1332,
+			"ejecucion_efectiva": 19.200722,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014890,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.011951
 		},
-		"proceso3": {
-			"time_real": 5.000080,
-			"cpu_user": 0.000293,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
+		"proceso2": {
+			"time_real": 0.002991,
+			"cpu_user": 0.000988,
+			"cpu_sys": 0.001976,
+			"memoria_pico_kb": 7712,
 			"cambios_contexto_vol": 2,
 			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000293,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000129,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000080
+			"ejecucion_efectiva": 0.002964
+		},
+		"proceso3": {
+			"time_real": 25.000584,
+			"cpu_user": 21.617897,
+			"cpu_sys": 0.008996,
+			"memoria_pico_kb": 7700,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 558,
+			"ejecucion_efectiva": 21.626893,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 20.024360,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.051646
 		}		}
 	},
 	{
 		"ciclo": 3,
 		"escenario": 2,
-		"tiempo_total_ciclo": 15.003398,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000706,
+		"tiempo_total_ciclo": 40.062190,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.058110,
 		"procesos": {
 		"proceso1": {
-			"time_real": 10.000141,
-			"cpu_user": 0.000000,
-			"cpu_sys": 0.000371,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000371,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000058,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000141
+			"time_real": 20.000191,
+			"cpu_user": 18.335544,
+			"cpu_sys": 0.008999,
+			"memoria_pico_kb": 7644,
+			"cambios_contexto_vol": 13,
+			"cambios_contexto_inv": 664,
+			"ejecucion_efectiva": 18.344543,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.015159,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012065
 		},
 		"proceso2": {
-			"time_real": 0.002469,
+			"time_real": 0.003357,
 			"cpu_user": 0.000000,
-			"cpu_sys": 0.002373,
-			"memoria_pico_kb": 7700,
+			"cpu_sys": 0.003329,
+			"memoria_pico_kb": 7648,
 			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 1,
-			"ejecucion_efectiva": 0.002373
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.003329
 		},
 		"proceso3": {
-			"time_real": 5.000082,
-			"cpu_user": 0.000277,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 3,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000277,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000214,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000082
+			"time_real": 20.000532,
+			"cpu_user": 19.400483,
+			"cpu_sys": 0.008996,
+			"memoria_pico_kb": 7676,
+			"cambios_contexto_vol": 20,
+			"cambios_contexto_inv": 991,
+			"ejecucion_efectiva": 19.409479,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.021394,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.037093
 		}		}
 	},
 	{
 		"ciclo": 4,
 		"escenario": 2,
-		"tiempo_total_ciclo": 15.003392,
-		"speedup_vs_e1": 0.00,
-		"tiempo_muerto_kernel": 0.000672,
+		"tiempo_total_ciclo": 40.060306,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.056715,
 		"procesos": {
 		"proceso1": {
-			"time_real": 10.000114,
-			"cpu_user": 0.000374,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
-			"cambios_contexto_vol": 2,
-			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000374,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 0.000047,
-			"quantum_dado": 10.000000,
-			"quantum_usado": 10.000114
+			"time_real": 20.000172,
+			"cpu_user": 18.244335,
+			"cpu_sys": 0.011996,
+			"memoria_pico_kb": 7704,
+			"cambios_contexto_vol": 13,
+			"cambios_contexto_inv": 1355,
+			"ejecucion_efectiva": 18.256331,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014679,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012172
 		},
 		"proceso2": {
-			"time_real": 0.002492,
-			"cpu_user": 0.001233,
-			"cpu_sys": 0.001233,
+			"time_real": 0.002938,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.002795,
+			"memoria_pico_kb": 7756,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.002795
+		},
+		"proceso3": {
+			"time_real": 20.000481,
+			"cpu_user": 19.014038,
+			"cpu_sys": 0.004998,
+			"memoria_pico_kb": 7696,
+			"cambios_contexto_vol": 20,
+			"cambios_contexto_inv": 516,
+			"ejecucion_efectiva": 19.019036,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.020486,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.036519
+		}		}
+	},
+	{
+		"ciclo": 0,
+		"escenario": 2,
+		"tiempo_total_ciclo": 40.059413,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.055962,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000210,
+			"cpu_user": 17.814155,
+			"cpu_sys": 0.009993,
+			"memoria_pico_kb": 7580,
+			"cambios_contexto_vol": 14,
+			"cambios_contexto_inv": 766,
+			"ejecucion_efectiva": 17.824148,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014763,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012334
+		},
+		"proceso2": {
+			"time_real": 0.002802,
+			"cpu_user": 0.000703,
+			"cpu_sys": 0.002110,
 			"memoria_pico_kb": 7724,
 			"cambios_contexto_vol": 2,
 			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.002466
+			"ejecucion_efectiva": 0.002813
 		},
 		"proceso3": {
-			"time_real": 5.000114,
-			"cpu_user": 0.000297,
-			"cpu_sys": 0.000000,
-			"memoria_pico_kb": 668,
+			"time_real": 20.000439,
+			"cpu_user": 17.954501,
+			"cpu_sys": 0.008001,
+			"memoria_pico_kb": 7584,
+			"cambios_contexto_vol": 20,
+			"cambios_contexto_inv": 274,
+			"ejecucion_efectiva": 17.962502,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.020195,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.036107
+		}		}
+	},
+	{
+		"ciclo": 1,
+		"escenario": 2,
+		"tiempo_total_ciclo": 45.078480,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.075132,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000154,
+			"cpu_user": 18.260547,
+			"cpu_sys": 0.004996,
+			"memoria_pico_kb": 7772,
+			"cambios_contexto_vol": 14,
+			"cambios_contexto_inv": 615,
+			"ejecucion_efectiva": 18.265543,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014359,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.011992
+		},
+		"proceso2": {
+			"time_real": 0.002528,
+			"cpu_user": 0.000835,
+			"cpu_sys": 0.001671,
+			"memoria_pico_kb": 7732,
 			"cambios_contexto_vol": 2,
 			"cambios_contexto_inv": 0,
-			"ejecucion_efectiva": 0.000297,
-			"num_pausas": 1,
-			"tiempo_pausado_total": 10.000179,
-			"quantum_dado": 5.000000,
-			"quantum_usado": 5.000114
+			"ejecucion_efectiva": 0.002506
+		},
+		"proceso3": {
+			"time_real": 25.000666,
+			"cpu_user": 23.324919,
+			"cpu_sys": 0.014987,
+			"memoria_pico_kb": 7704,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 1465,
+			"ejecucion_efectiva": 23.339906,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 20.026069,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.049592
+		}		}
+	},
+	{
+		"ciclo": 2,
+		"escenario": 2,
+		"tiempo_total_ciclo": 45.081601,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.075563,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000307,
+			"cpu_user": 19.160876,
+			"cpu_sys": 0.005998,
+			"memoria_pico_kb": 7724,
+			"cambios_contexto_vol": 13,
+			"cambios_contexto_inv": 546,
+			"ejecucion_efectiva": 19.166874,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.015154,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012326
+		},
+		"proceso2": {
+			"time_real": 0.004742,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.002969,
+			"memoria_pico_kb": 7616,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 2,
+			"ejecucion_efectiva": 0.002969
+		},
+		"proceso3": {
+			"time_real": 25.000989,
+			"cpu_user": 20.105203,
+			"cpu_sys": 0.006994,
+			"memoria_pico_kb": 7716,
+			"cambios_contexto_vol": 23,
+			"cambios_contexto_inv": 1088,
+			"ejecucion_efectiva": 20.112197,
+			"num_pausas": 5,
+			"tiempo_pausado_total": 20.027181,
+			"quantum_dado": 25.000000,
+			"quantum_usado": 25.049199
+		}		}
+	},
+	{
+		"ciclo": 3,
+		"escenario": 2,
+		"tiempo_total_ciclo": 40.061453,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.057235,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000521,
+			"cpu_user": 18.800629,
+			"cpu_sys": 0.008990,
+			"memoria_pico_kb": 7660,
+			"cambios_contexto_vol": 13,
+			"cambios_contexto_inv": 1104,
+			"ejecucion_efectiva": 18.809619,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014936,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012716
+		},
+		"proceso2": {
+			"time_real": 0.003139,
+			"cpu_user": 0.000964,
+			"cpu_sys": 0.001929,
+			"memoria_pico_kb": 7840,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.002893
+		},
+		"proceso3": {
+			"time_real": 20.000558,
+			"cpu_user": 19.326451,
+			"cpu_sys": 0.002998,
+			"memoria_pico_kb": 7704,
+			"cambios_contexto_vol": 20,
+			"cambios_contexto_inv": 371,
+			"ejecucion_efectiva": 19.329449,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.021011,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.036736
+		}		}
+	},
+	{
+		"ciclo": 4,
+		"escenario": 2,
+		"tiempo_total_ciclo": 40.060269,
+		"speedup_vs_e2": 1.00,
+		"tiempo_muerto_kernel": 0.056224,
+		"procesos": {
+		"proceso1": {
+			"time_real": 20.000236,
+			"cpu_user": 18.657810,
+			"cpu_sys": 0.001999,
+			"memoria_pico_kb": 7632,
+			"cambios_contexto_vol": 13,
+			"cambios_contexto_inv": 1064,
+			"ejecucion_efectiva": 18.659809,
+			"num_pausas": 2,
+			"tiempo_pausado_total": 5.014995,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.012003
+		},
+		"proceso2": {
+			"time_real": 0.003318,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.003272,
+			"memoria_pico_kb": 7716,
+			"cambios_contexto_vol": 2,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.003272
+		},
+		"proceso3": {
+			"time_real": 20.000491,
+			"cpu_user": 19.024257,
+			"cpu_sys": 0.006998,
+			"memoria_pico_kb": 7664,
+			"cambios_contexto_vol": 22,
+			"cambios_contexto_inv": 327,
+			"ejecucion_efectiva": 19.031255,
+			"num_pausas": 4,
+			"tiempo_pausado_total": 20.020290,
+			"quantum_dado": 20.000000,
+			"quantum_usado": 20.036303
 		}		}
 	}
 ]

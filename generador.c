@@ -16,7 +16,7 @@ int main()
     int activo = 1; // 1 = sistema encendido, 0 = apagado
     int temp = 45;
 
-    for (int i = 0; i < 40; i++)
+    for (int i = 0; i < 50; i++)
     {
         if (activo)
         {

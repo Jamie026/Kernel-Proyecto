@@ -1,0 +1,352 @@
+[
+	{
+		"ciclo": 0,
+		"escenario": 4,
+		"tiempo_total_ciclo": 32.876991,
+		"speedup_vs_e2": 1.22,
+		"tiempo_muerto_kernel": 0.000308,
+		"procesos": {
+		"proceso1": {
+			"time_real": 32.876683,
+			"cpu_user": 32.532429,
+			"cpu_sys": 0.189536,
+			"memoria_pico_kb": 7728,
+			"cambios_contexto_vol": 11,
+			"cambios_contexto_inv": 15245,
+			"ejecucion_efectiva": 32.721965
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 1,
+		"escenario": 4,
+		"tiempo_total_ciclo": 32.607462,
+		"speedup_vs_e2": 1.23,
+		"tiempo_muerto_kernel": 0.000351,
+		"procesos": {
+		"proceso1": {
+			"time_real": 32.607111,
+			"cpu_user": 32.588942,
+			"cpu_sys": 0.014998,
+			"memoria_pico_kb": 7708,
+			"cambios_contexto_vol": 10,
+			"cambios_contexto_inv": 234,
+			"ejecucion_efectiva": 32.603940
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 2,
+		"escenario": 4,
+		"tiempo_total_ciclo": 33.281756,
+		"speedup_vs_e2": 1.20,
+		"tiempo_muerto_kernel": 0.000205,
+		"procesos": {
+		"proceso1": {
+			"time_real": 33.281551,
+			"cpu_user": 33.244820,
+			"cpu_sys": 0.013990,
+			"memoria_pico_kb": 7736,
+			"cambios_contexto_vol": 11,
+			"cambios_contexto_inv": 605,
+			"ejecucion_efectiva": 33.258810
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 3,
+		"escenario": 4,
+		"tiempo_total_ciclo": 33.186343,
+		"speedup_vs_e2": 1.21,
+		"tiempo_muerto_kernel": 0.000261,
+		"procesos": {
+		"proceso1": {
+			"time_real": 33.186082,
+			"cpu_user": 33.141627,
+			"cpu_sys": 0.014997,
+			"memoria_pico_kb": 7780,
+			"cambios_contexto_vol": 10,
+			"cambios_contexto_inv": 537,
+			"ejecucion_efectiva": 33.156624
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 4,
+		"escenario": 4,
+		"tiempo_total_ciclo": 33.557834,
+		"speedup_vs_e2": 1.19,
+		"tiempo_muerto_kernel": 0.000256,
+		"procesos": {
+		"proceso1": {
+			"time_real": 33.557578,
+			"cpu_user": 33.189771,
+			"cpu_sys": 0.207392,
+			"memoria_pico_kb": 7860,
+			"cambios_contexto_vol": 10,
+			"cambios_contexto_inv": 15746,
+			"ejecucion_efectiva": 33.397163
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 0,
+		"escenario": 4,
+		"tiempo_total_ciclo": 32.897058,
+		"speedup_vs_e2": 1.22,
+		"tiempo_muerto_kernel": 0.000254,
+		"procesos": {
+		"proceso1": {
+			"time_real": 32.896804,
+			"cpu_user": 32.794050,
+			"cpu_sys": 0.019991,
+			"memoria_pico_kb": 7812,
+			"cambios_contexto_vol": 11,
+			"cambios_contexto_inv": 1959,
+			"ejecucion_efectiva": 32.814041
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 1,
+		"escenario": 4,
+		"tiempo_total_ciclo": 33.489872,
+		"speedup_vs_e2": 1.20,
+		"tiempo_muerto_kernel": 0.000291,
+		"procesos": {
+		"proceso1": {
+			"time_real": 33.489581,
+			"cpu_user": 33.397505,
+			"cpu_sys": 0.014997,
+			"memoria_pico_kb": 7876,
+			"cambios_contexto_vol": 11,
+			"cambios_contexto_inv": 1700,
+			"ejecucion_efectiva": 33.412502
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 2,
+		"escenario": 4,
+		"tiempo_total_ciclo": 34.920296,
+		"speedup_vs_e2": 1.15,
+		"tiempo_muerto_kernel": 0.000336,
+		"procesos": {
+		"proceso1": {
+			"time_real": 34.919960,
+			"cpu_user": 34.865058,
+			"cpu_sys": 0.013994,
+			"memoria_pico_kb": 7836,
+			"cambios_contexto_vol": 11,
+			"cambios_contexto_inv": 1122,
+			"ejecucion_efectiva": 34.879052
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 3,
+		"escenario": 4,
+		"tiempo_total_ciclo": 34.322449,
+		"speedup_vs_e2": 1.17,
+		"tiempo_muerto_kernel": 0.000293,
+		"procesos": {
+		"proceso1": {
+			"time_real": 34.322156,
+			"cpu_user": 34.155992,
+			"cpu_sys": 0.092899,
+			"memoria_pico_kb": 7900,
+			"cambios_contexto_vol": 10,
+			"cambios_contexto_inv": 5562,
+			"ejecucion_efectiva": 34.248891
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	},
+	{
+		"ciclo": 4,
+		"escenario": 4,
+		"tiempo_total_ciclo": 33.886005,
+		"speedup_vs_e2": 1.18,
+		"tiempo_muerto_kernel": 0.000265,
+		"procesos": {
+		"proceso1": {
+			"time_real": 33.885740,
+			"cpu_user": 33.871840,
+			"cpu_sys": 0.009999,
+			"memoria_pico_kb": 7708,
+			"cambios_contexto_vol": 10,
+			"cambios_contexto_inv": 319,
+			"ejecucion_efectiva": 33.881839
+		},
+		"proceso2": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		},
+		"proceso3": {
+			"time_real": 0.000000,
+			"cpu_user": 0.000000,
+			"cpu_sys": 0.000000,
+			"memoria_pico_kb": 0,
+			"cambios_contexto_vol": 0,
+			"cambios_contexto_inv": 0,
+			"ejecucion_efectiva": 0.000000
+		}		}
+	}
+]
